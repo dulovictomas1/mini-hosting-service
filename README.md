@@ -160,6 +160,124 @@ Example VirtualHost:
 
 ---
 
+# REST API Layer
+
+The project also contains a basic REST API layer built with Laravel Sanctum.
+
+## Public Endpoints
+
+### Get Hosting Plans
+
+```http
+GET /api/plans
+```
+
+Returns publicly available hosting plans.
+
+---
+
+## Authentication
+
+### Login
+
+```http
+POST /api/login
+```
+
+Request:
+
+```json
+{
+  "email": "test@example.com",
+  "password": "password"
+}
+```
+
+Response:
+
+```json
+{
+  "success": true,
+  "token": "1|xxxxxxxx",
+  "user": {
+    "id": 1,
+    "name": "Test User"
+  }
+}
+```
+
+---
+
+# Protected Endpoints
+
+Protected endpoints use:
+
+```php
+
+auth:sanctum
+
+```
+
+middleware and require:
+
+```http
+
+Authorization: Bearer TOKEN
+
+```
+
+header.
+
+---
+
+## Get User Databases
+
+```http
+
+GET /api/databases
+
+```
+
+Returns authenticated user's databases.
+
+---
+
+## Get User Webspaces
+
+```http
+
+GET /api/webspaces
+
+```
+
+Returns authenticated user's webspaces.
+
+---
+
+# API Architecture
+
+The API layer follows:
+
+- thin controller principle
+
+- service layer architecture
+
+- token-based authentication
+
+- REST resource-oriented design
+
+Controllers are responsible only for:
+
+- request validation
+
+- calling services
+
+- returning JSON responses
+
+Business logic and provisioning remain inside service classes.
+
+---
+
 # Current Status
 
 Implemented:
