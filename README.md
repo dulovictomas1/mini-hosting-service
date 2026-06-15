@@ -1,20 +1,44 @@
 # Mini Hosting Service
 
-Learning project focused on backend architecture, provisioning logic and hosting automation built with Laravel.
+## Overview
+
+Mini Hosting Panel is a Laravel-based project created for learning and experimentation with automated web hosting provisioning on a self-hosted Ubuntu VPS environment.
+
+The goal of the project is to simulate core hosting panel functionality, including database provisioning, webspace creation, Nginx virtual host management, and basic hosting automation.
+
+The project is currently developed and tested on a local Ubuntu Server VPS running:
+
+- Ubuntu Server LTS
+- Nginx
+- PHP-FPM 8.5
+- MariaDB
+- Laravel
+- Node.js & Vite
+
+This is not intended as a production-ready hosting solution, but rather as a practical environment for exploring Linux server administration, web hosting automation, and Laravel service-oriented architecture.
 
 ---
 
 ## Features
 
-- User registration & authentication (Laravel Breeze)
-- Hosting plans (Mini, Standard, Top)
-- Database limits per plan
-- MySQL database provisioning
-- MySQL user provisioning
-- Privilege assignment
-- Webspace provisioning
-- Apache VirtualHost routing
-- Domain → webspace mapping
+### Database Provisioning
+
+- Create MySQL/MariaDB databases
+- Create database users
+- Assign privileges
+
+### Webspace Provisioning
+
+- Create webspace directories
+- Generate default index files
+- Store metadata
+
+### Nginx Provisioning
+
+- Generate virtual host configurations
+- Enable sites automatically
+- Validate Nginx configuration
+- Reload Nginx
 
 ---
 
