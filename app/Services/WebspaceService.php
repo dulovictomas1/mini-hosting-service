@@ -9,7 +9,8 @@ use Illuminate\Support\Str;
 class WebspaceService
 {
     public function __construct(
-        protected WebspaceProvisioningService $webspaceprovisioningservice
+        protected WebspaceProvisioningService $webspaceprovisioningservice,
+        protected NginxProvisioningService $nginxprovisioningservice,
     )
     {
         //
@@ -22,6 +23,11 @@ class WebspaceService
         $path = '/var/www/html/clients/user_' . $user->id . '/' . $slug;
 
         $this->webspaceprovisioningservice->createDirectory($path);
+
+        $this->nginxprovisioningservice->createVirtualHost(
+            domain: $domain,
+            rootPath: $path,
+        );
 
         return Webspace::create([
             'user_id' => $user->id,
