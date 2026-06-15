@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\File;
+use Symfony\Component\Process\Process;
 
 class NginxProvisioningService
 {
@@ -42,5 +43,22 @@ NGINX;
         }
 
         File::put($configPath, $config);
+    }    
+
+    public function enableVirtualHost(string $domain): void
+    {
+        $process = new Process([
+            'sudo',
+            '/usr/local/bin/enable-webspace',
+            $domain,
+        ]);
+
+        $process->run();
+
+        if (! $process->isSuccessful()) {
+            throw new \RuntimeException(
+                $process->getErrorOutput()
+            );
+        }
     }
 }

@@ -29,6 +29,8 @@ class WebspaceService
             rootPath: $path,
         );
 
+        $this->nginxprovisioningservice->enableVirtualHost($domain);
+
         return Webspace::create([
             'user_id' => $user->id,
             'domain' => $domain,
