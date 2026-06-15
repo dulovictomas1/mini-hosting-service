@@ -30,7 +30,7 @@
                        
                         <form action="{{ route('databases.store') }}" method="post" class="mt-6 space-y-6">
                             @csrf
-                            <label for="">Názov databázy:</label>
+                            <label for="">Názov databázy (nesmie obsahovať diakritiku ani špeciálne znaky):</label>
                             <input type="text" name="database_name" id="">
 
                             <br><br>
@@ -67,7 +67,9 @@
                         <p>Nemáte vytvorenú žiadnu databázu</p>
                     @else
                         @foreach ( $databases as $db )
-                            {{ $db->database_name }}
+                        <p>Prístupové údaje:</p>
+                            Prihlasovacie meno: <b>{{ $db->database_name }}</b><br>
+                            Názov databázy: <b>{{ $db->database_user }}</b>
                         @endforeach
                     @endif
 

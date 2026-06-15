@@ -49,3 +49,8 @@ header {
     background-color: rgb(40, 40, 40);
     color: white;
 }
+
+.disabledelement {
+    pointer-events: none;
+    opacity: 0.4;
+}

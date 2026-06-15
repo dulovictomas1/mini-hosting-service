@@ -27,7 +27,7 @@
                         <h3>Vyberte si hostingový balíček</h3>
                                             
                         @foreach ($plans as $plan)
-                            <div class="plan">
+                            <div class="plan @if($plan->name === 'Top' || $plan->name === 'Standard') disabledelement @endif">
                                 <p>Balíček: {{ $plan->name }}</p>
                                 <p>Databázový limit: {{ $plan->database_limit }}</p>
 

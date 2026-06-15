@@ -19,7 +19,7 @@ class WebspaceService
     {
         $slug = Str::slug(str_replace('.', '-', $domain), '_');
 
-        $path = '/Applications/XAMPP/xamppfiles/htdocs/clients/user_' . $user->id . '/' . $slug;
+        $path = '/var/www/html/clients/user_' . $user->id . '/' . $slug;
 
         $this->webspaceprovisioningservice->createDirectory($path);
 

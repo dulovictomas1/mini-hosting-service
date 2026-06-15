@@ -61,7 +61,7 @@
                     
                     <div class="packets">
                         @foreach ($plans as $plan)
-                            <div class="packet">
+                            <div class="packet @if($plan->name === 'Top' || $plan->name === 'Standard') disabledelement @endif">
                                 <h2>Balíček: <strong>{{ $plan->name }}</strong></h2>
                                 <p>Počet databáz: <strong>{{ $plan->database_limit }}</strong></p>
                                 <a href="{{ route('register') }}">
