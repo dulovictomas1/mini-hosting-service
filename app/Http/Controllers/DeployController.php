@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\DeployCloneService;
 use App\Models\Webspace;
 use Exception;
+use App\Jobs\DeployCloneJob;
 
 class DeployController extends Controller
 {
@@ -18,7 +19,16 @@ class DeployController extends Controller
         $webspace = auth()->user()->webspaces()->firstOrFail();
         $path = str_replace('/public', '', $webspace->path);        
 
-        try {
+        DeployCloneJob::dispatch(
+            $path,
+            $validated['giturl']
+        );
+
+        return redirect()
+            ->route('deploy')
+            ->with('success', 'Deploy bol spustený na pozadí.');
+
+        /*try {
             $deployCloneService->clone(
                 $path,
                 $validated['giturl'],
@@ -28,7 +38,7 @@ class DeployController extends Controller
 
         } catch (Exception $e) {
             return redirect()->route('deploy')->withErrors($e->getMessage());
-        }
+        }*/
         
     }
 }
