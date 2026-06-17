@@ -12,6 +12,7 @@ class WebspaceProvisioningService
             File::makeDirectory($path, 0755, true);
         }
 
-        File::put($path . DIRECTORY_SEPARATOR . 'index.php', '<?php echo "Tento webspace je pripravený.";');
+        // Dočasne zakomentované kvôli git clonu
+        //File::put($path . DIRECTORY_SEPARATOR . 'index.php', '<?php echo "Tento webspace je pripravený.";');
     }
 }

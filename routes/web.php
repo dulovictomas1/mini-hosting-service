@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeConroller;
 use App\Http\Controllers\UserPlanController;
 use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\WebspaceController;
+use App\Http\Controllers\DeployController;
 use App\Models\Database;
 use App\Models\Plan;
 use App\Models\Webspace;
@@ -41,6 +42,12 @@ Route::middleware('auth')->group(function () {
             'webspace' => auth()->user()->webspaces
         ]);
     })->name('webspace');
+
+    Route::get('/deploy', function() {
+        return view('deploy_view', [
+            'webspaces' => auth()->user()->webspaces->first(),
+        ]);
+    })->name('deploy');
 });
 
 require __DIR__.'/auth.php';
@@ -49,3 +56,5 @@ Route::get('/', [HomeConroller::class, 'index'])->name('show.index');
 
 Route::post('/databazy/create', [DatabaseController::class, 'store'])->middleware(['auth'])->name('databases.store');
 Route::post('/webspace/create', [WebspaceController::class, 'store'])->middleware(['auth'])->name('webspace.store');
+
+Route::post('/gitclone/create', [DeployController::class, 'createClone'])->middleware(['auth'])->name('gitclone.create');
