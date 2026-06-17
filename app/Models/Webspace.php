@@ -11,6 +11,7 @@ class Webspace extends Model
         'domain',
         'path',
         'status',
+        'type',
     ];
 
     public function user()
