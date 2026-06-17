@@ -36,7 +36,7 @@
                         </div>
                         <br>
                         <div>
-                            <label>Typ webovej stránky</label>
+                            <label>Typ webovej stránky (nastavuje sa root path)</label>
                             <select name="type" id="">
                                 <option value="classic">Klasická stránka</option>
                                 <option value="laravelapp">Laravel aplikácia</option>

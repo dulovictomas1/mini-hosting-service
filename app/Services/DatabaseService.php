@@ -5,6 +5,7 @@ use App\Models\Database;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Exception;
+use Illuminate\Support\Facades\Crypt;
 
 class DatabaseService
 {
@@ -46,6 +47,7 @@ class DatabaseService
             'database_user' => $databaseUser,
             'charset' => $charset,
             'collation' => $collation,
+            'database_password' => Crypt::encryptString($databasePassword),
             'status' => 'active',
         ]);
 

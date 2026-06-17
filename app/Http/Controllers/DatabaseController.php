@@ -27,7 +27,7 @@ class DatabaseController extends Controller
             'collation' => [
                 'required',
                 Rule::in(config('database_options.collations'))
-            ]
+            ],            
         ]);
 
         try {
@@ -35,7 +35,7 @@ class DatabaseController extends Controller
                 auth()->user(),
                 $validated['database_name'],
                 $validated['charset'],
-                $validated['collation']
+                $validated['collation'],                
             );
 
             return redirect()->route('databazy')->with('success', 'Databáza bola vytvorená')->with('databasePassword', $result['password']);

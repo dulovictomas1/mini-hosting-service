@@ -18,5 +18,6 @@ class Database extends Model
         'charset',
         'collation',
         'status',
+        'database_password'
     ];
 }
