@@ -41,6 +41,7 @@ class DatabaseService
             $collation
         );
 
+        //Add crypt pass for next use
         $database = Database::create([
             'user_id' => $user->id,
             'database_name' => $databaseName,
