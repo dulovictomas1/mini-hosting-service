@@ -34,6 +34,14 @@
                             <label>Doménové meno</label>
                             <input type="text" name="domain" placeholder="example.test" required>
                         </div>
+                        <br>
+                        <div>
+                            <label>Typ webovej stránky</label>
+                            <select name="type" id="">
+                                <option value="classic">Klasická stránka</option>
+                                <option value="laravelapp">Laravel aplikácia</option>
+                            </select>
+                        </div>
 
                         <br>
 

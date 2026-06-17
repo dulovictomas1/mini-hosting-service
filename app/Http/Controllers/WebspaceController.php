@@ -12,10 +12,11 @@ class WebspaceController extends Controller
     {
         $validated = $request->validate([
             'domain' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', 'unique:webspaces,domain'],
+            'type' => ['required']
         ]);
 
         try {
-            $webspaceService->createForUser(auth()->user(), $validated['domain']);
+            $webspaceService->createForUser(auth()->user(), $validated['domain'], $validated['type']);
 
             return redirect()->route('webspace')->with('success', 'Webspace bol vytvorený');
         } catch (Exception $e) {
