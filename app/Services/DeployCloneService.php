@@ -18,6 +18,8 @@ class DeployCloneService
             $path,
         ]);
 
+        $process->setTimeout(600);
+        
         $process->run();
 
         if (! $process->isSuccessful()) {
