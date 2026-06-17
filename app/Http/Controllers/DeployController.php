@@ -15,11 +15,12 @@ class DeployController extends Controller
             'giturl' => ['required'],
         ]);
 
-        $webspace = auth()->user()->webspaces()->firstOrFail();        
+        $webspace = auth()->user()->webspaces()->firstOrFail();
+        $path = str_replace('/public', '', $webspace->path);        
 
         try {
             $deployCloneService->clone(
-                $webspace->path,
+                $path,
                 $validated['giturl'],
             );
 
