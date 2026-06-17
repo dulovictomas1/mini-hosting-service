@@ -25,13 +25,7 @@
                             {{ session('success') }}
                         </div>
                     @endif
-
-                    
-
-                    {{ $webspaces->path }}
-                    
-                    
-
+        
 
                     @if (auth()->user()->plan_id)
                        
