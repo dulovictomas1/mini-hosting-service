@@ -21,16 +21,17 @@ class WebspaceService
         $slug = Str::slug(str_replace('.', '-', $domain), '_');
 
         $path = '/var/www/html/clients/user_' . $user->id . '/' . $slug;
+        $pathNgx = '/var/www/html/clients/user_' . $user->id . '/' . $slug;
 
         if ($type === 'laravelapp') {
-            $path .= '/public';
+            $pathNgx .= '/public';
         }
 
         $this->webspaceprovisioningservice->createDirectory($path);
 
         $this->nginxprovisioningservice->createVirtualHost(
             domain: $domain,
-            rootPath: $path,
+            rootPath: $pathNgx,
         );
 
         $this->nginxprovisioningservice->enableVirtualHost($domain);
