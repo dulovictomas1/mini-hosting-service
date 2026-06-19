@@ -17,7 +17,9 @@ class DeployComposerService
 
         $process = new Process([
             'composer',
-            'install'
+            'install',
+            '--optimize-autoloader',
+            '--no-dev'
         ]);
 
         $process->setTimeout(600);
