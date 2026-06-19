@@ -61,6 +61,8 @@ Route::post('/gitclone/create', [DeployController::class, 'createClone'])->middl
 
 Route::post('/composerinst/create', [DeployController::class, 'composerInstall'])->middleware(['auth'])->name('composerinst.create');
 
+Route::post('/laravelsetup/create', [DeployController::class, 'laravelstup'])->middleware(['auth'])->name('laravelsetup.create');
+
 Route::get('/webspace/{webspace}/status', function(App\Models\Webspace $webspace) {
     return response()->json([
         'status' => $webspace->deploy_status,

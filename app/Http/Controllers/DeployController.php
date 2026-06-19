@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Services\DeployCloneService;
 use App\Services\DeployComposerService;
 use App\Models\Webspace;
+use App\Models\Database;
 use Exception;
 use App\Jobs\DeployCloneJob;
 use App\Jobs\DeployComposerJob;
+use App\Services\DeployLaravelsetupService;
 
 class DeployController extends Controller
 {
@@ -59,5 +61,27 @@ class DeployController extends Controller
             ->route('deploy')
             ->with('success', 'Composer Install bol spustený na pozadí.');
 
+    }
+
+    public function laravelstup( Request $request, DeployLaravelsetupService $deployLaravelsetupService )
+    {
+        $webspace = auth()->user()->webspaces()->firstOrFail();
+        $database = auth()->user()->databases()->firstOrFail();
+        $path = str_replace('/public', '', $webspace->path);   
+
+        try {
+            $deployLaravelsetupService->setup(
+                $database->name,
+                $database->database_user,
+                $database->password,
+                $path,              
+                $webspace->id,  
+            );
+
+            return redirect()->route('deploy')->with('success', 'ENV súbor bol úspešne vytvorený, KEY generate prebehol úspešne');
+
+        } catch (Exception $e) {
+            return redirect()->route('deploy')->withErrors($e->getMessage());
+        }
     }
 }
