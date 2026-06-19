@@ -400,3 +400,19 @@ Mini Hosting Service is primarily an educational project focused on:
 - DevOps fundamentals
 
 The goal is to understand how commercial hosting panels work internally by building one from scratch.
+
+---
+
+## Screenshots
+
+### Database Provisioning
+
+![Database Provisioning](Screenshots/DatabasesScreen.jpg)
+
+### Webspace Provisioning
+
+![Webspace Provisioning](Screenshots/HostScreen.png)
+
+### Laravel Deployment
+
+![Laravel Deployment](Screenshots/DeployScreen.png)
