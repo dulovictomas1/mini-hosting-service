@@ -72,7 +72,7 @@ class DeployLaravelsetupService
             'key:generate',
         ], $path);
 
-        $process->setTimeout(600);
+        //$process->setTimeout(600);
 
         $process->run();
 
