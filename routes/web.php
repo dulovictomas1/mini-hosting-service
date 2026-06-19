@@ -63,6 +63,8 @@ Route::post('/composerinst/create', [DeployController::class, 'composerInstall']
 
 Route::post('/laravelsetup/create', [DeployController::class, 'laravelstup'])->middleware(['auth'])->name('laravelsetup.create');
 
+Route::post('/laravelmigrate/create', [DeployController::class, 'laravelmigrate'])->middleware(['auth'])->name('laravelmigrate.create');
+
 Route::get('/webspace/{webspace}/status', function(App\Models\Webspace $webspace) {
     return response()->json([
         'status' => $webspace->deploy_status,
