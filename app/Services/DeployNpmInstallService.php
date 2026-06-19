@@ -40,8 +40,8 @@ class DeployNpmInstallService
             );
         }
 
-        $webspace->update([
+        /*$webspace->update([
             'deploy_status' => 'Proces Npm install úspešne dokončený',
-        ]);
+        ]);*/
     }
 }
