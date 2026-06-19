@@ -138,19 +138,14 @@ class DeployLaravelsetupService
         $process = new Process([
             'php',
             'artisan',
-            'migrate',
-            '--force',
-        ]);
-
-        $process->setWorkingDirectory($path);
+            'migrate:status',
+        ], $path);
 
         $process->run();
 
         dd(
-            $webspace->id,
-            $webspace->domain,
-            $webspace->path,
-            $path
+            $process->getOutput(),
+            file_get_contents($path . '/.env')
         );
 
         //dd($process->getOutput());
