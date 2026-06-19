@@ -21,7 +21,7 @@ class DeployComposerService
             '--no-dev',
         ], $path);
 
-        //$process->setTimeout(600);
+        $process->setTimeout(600);
 
         $process->run();
 
