@@ -119,7 +119,7 @@ class DeployLaravelsetupService
 
         $clear->run();
 
-        $process = new Process([
+        /*$process = new Process([
             'php',
             'artisan',
             'migrate',
@@ -133,6 +133,23 @@ class DeployLaravelsetupService
         dd(
             $path,
             file_get_contents($path . '/.env')
+        );*/
+
+        $process = new Process([
+            'php',
+            $path . '/artisan',
+            'migrate',
+            '--force',
+        ]);
+
+        $process->setTimeout(600);
+
+        $process->run();
+
+        dd(
+            $process->isSuccessful(),
+            $process->getOutput(),
+            $process->getErrorOutput()
         );
 
         if (! $process->isSuccessful()) {
