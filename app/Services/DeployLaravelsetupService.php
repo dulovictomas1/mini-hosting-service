@@ -76,6 +76,12 @@ class DeployLaravelsetupService
             'key:generate',
         ], $path);
 
+        dd(
+            get_current_user(),
+            posix_geteuid(),
+            shell_exec('whoami')
+        );
+
         //$process->setTimeout(600);
 
         $process->run();        
