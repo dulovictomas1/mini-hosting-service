@@ -2,201 +2,322 @@
 
 ## Overview
 
-Mini Hosting Panel is a Laravel-based project created for learning and experimentation with automated web hosting provisioning on a self-hosted Ubuntu VPS environment.
+Mini Hosting Service is a Laravel-based self-hosted hosting panel built for learning and experimentation with web hosting automation, Linux server administration, and Laravel architecture.
 
-The goal of the project is to simulate core hosting panel functionality, including database provisioning, webspace creation, Nginx virtual host management, and basic hosting automation.
+The project automates common hosting tasks such as:
 
-The project is currently developed and tested on a local Ubuntu Server VPS running:
+- Database provisioning
+- Webspace provisioning
+- Nginx virtual host management
+- Laravel application deployment
+- Composer dependency installation
+- Environment configuration
+- Application key generation
+- Database migrations
+- Node.js package installation
+- Frontend asset building
+
+The system is currently developed and tested on a self-hosted Ubuntu Server environment.
+
+---
+
+## Infrastructure Stack
+
+### Operating System
 
 - Ubuntu Server LTS
+
+### Web Server
+
 - Nginx
-- PHP-FPM 8.5
+
+### Runtime
+
+- PHP 8.5
+- PHP-FPM
+
+### Database
+
 - MariaDB
-- Laravel
-- Node.js & Vite
 
-This is not intended as a production-ready hosting solution, but rather as a practical environment for exploring Linux server administration, web hosting automation, and Laravel service-oriented architecture.
+### Frontend Tooling
 
----
+- Node.js
+- NPM
+- Vite
 
-## Features
+### Framework
 
-### Database Provisioning
-
-- Create MySQL/MariaDB databases
-- Create database users
-- Assign privileges
-
-### Webspace Provisioning
-
-- Create webspace directories
-- Generate default index files
-- Store metadata
-
-### Nginx Provisioning
-
-- Generate virtual host configurations
-- Enable sites automatically
-- Validate Nginx configuration
-- Reload Nginx
+- Laravel 12
 
 ---
 
-# Tech Stack
+# Features
 
-- Laravel
-- PHP 8
-- MySQL
-- Apache
-- Laravel Breeze
-- Blade
-- Eloquent ORM
+## User Authentication
+
+- Laravel Breeze authentication
+- User registration
+- User login/logout
+- User dashboard
+
+---
+
+## Hosting Plans
+
+- Create hosting plans
+- Resource limits
+- User plan assignment
+
+---
+
+## Database Provisioning
+
+Automatically creates:
+
+- Database
+- Database user
+- Secure password
+- Privileges
+
+Features:
+
+- Automatic naming conventions
+- Privilege assignment
+- Metadata storage
+- One-time password display
+
+---
+
+## Webspace Provisioning
+
+Automatically creates:
+
+- Client directory structure
+- Web root
+- Ownership and permissions
+- Metadata records
+
+Example:
+
+```text
+/var/www/html/clients/user_2/myproject
+```
+
+---
+
+## Nginx Virtual Host Provisioning
+
+Automatically:
+
+- Generates virtual host configuration
+- Creates sites-available configuration
+- Creates sites-enabled symlink
+- Validates configuration
+- Reloads Nginx
+
+Example domain:
+
+```text
+myproject.test
+```
+
+---
+
+# Laravel Deployment Automation
+
+The panel can automatically deploy Laravel applications into a provisioned webspace.
+
+## Git Repository Clone
+
+Supported:
+
+```bash
+git clone
+```
+
+---
+
+## Composer Install
+
+Automatically executes:
+
+```bash
+composer install --no-interaction --prefer-dist
+```
+
+---
+
+## Environment Configuration
+
+Automatically:
+
+- Creates `.env`
+- Injects database credentials
+- Injects application URL
+- Stores deployment configuration
+
+---
+
+## Application Key Generation
+
+Automatically executes:
+
+```bash
+php artisan key:generate
+```
+
+---
+
+## Database Migrations
+
+Automatically executes:
+
+```bash
+php artisan migrate --force
+```
+
+Migration execution is performed under the web server user to ensure proper permissions and configuration loading.
+
+---
+
+## Node.js Dependency Installation
+
+Automatically executes:
+
+```bash
+npm install
+```
+
+Includes handling of:
+
+- npm cache ownership
+- dependency installation
+- build preparation
+
+---
+
+## Frontend Build
+
+Automatically executes:
+
+```bash
+npm run build
+```
+
+for Vite-based applications.
+
+---
+
+# Queue System
+
+Long-running deployment tasks are executed asynchronously using Laravel Queues.
+
+Current queue jobs include:
+
+- Git clone
+- Composer install
+- Laravel setup
+- NPM install
+- Frontend build
+
+Benefits:
+
+- Non-blocking UI
+- Deployment status tracking
+- Better scalability
 
 ---
 
 # Architecture
 
-The project separates responsibilities into multiple layers.
+The project follows a service-oriented architecture.
 
 ## Controllers
 
-Responsible for:
-- request validation
-- request/response flow
-- redirects
-- flash messages
+Responsibilities:
 
-Controllers stay intentionally thin.
+- Request validation
+- Authorization
+- Redirects
+- Flash messages
+
+Controllers remain intentionally thin.
 
 ---
 
-## Service Layer
+## Services
 
 ### DatabaseService
 
-Responsible for:
-- business rules
-- plan limits
-- naming generation
-- orchestration
+Business rules and database management.
 
 ### DatabaseProvisioningService
 
-Responsible for:
-- CREATE DATABASE
-- CREATE USER
-- GRANT PRIVILEGES
-- MySQL infrastructure provisioning
+Infrastructure-level database provisioning.
 
 ### WebspaceService
 
-Responsible for:
-- domain handling
-- path generation
-- metadata persistence
+Webspace orchestration and metadata.
 
 ### WebspaceProvisioningService
 
-Responsible for:
-- directory creation
-- filesystem provisioning
-- initial index.php generation
+Filesystem provisioning.
 
----
+### NginxProvisioningService
 
-# Provisioning Flow
+Virtual host generation and Nginx management.
 
-## Database provisioning
+### DeployGitCloneService
 
-User request:
+Repository cloning.
 
-```text
-Create database
-```
+### DeployComposerInstallService
 
-Backend flow:
+Composer dependency installation.
 
-```text
-Request
-→ Validation
-→ Business rules
-→ Generate DB/user names
-→ Generate password
-→ CREATE DATABASE
-→ CREATE USER
-→ GRANT PRIVILEGES
-→ Save metadata
-→ Show password once
-```
+### DeployLaravelSetupService
 
----
+Laravel environment setup and migration handling.
 
-## Webspace provisioning
+### DeployNpmInstallService
 
-User request:
+Node dependency installation.
 
-```text
-Create webspace
-```
+### DeployBuildService
 
-Backend flow:
-
-```text
-Request
-→ Validation
-→ Generate safe path
-→ Create directory
-→ Create index.php
-→ Save metadata
-```
+Frontend build execution.
 
 ---
 
 # Security Concepts
 
-Project focuses on:
-- whitelist validation
-- regex validation
-- controlled path generation
-- controlled database naming
-- separation of infrastructure layer
-- no database password persistence
-- one-time password display
+The project emphasizes:
+
+- Input validation
+- Controlled filesystem access
+- Controlled database naming
+- Least privilege principles
+- Infrastructure isolation
+- Secure credential generation
+- Ownership management
+- Execution under web server user
 
 ---
 
-# Local Apache VirtualHosts
+# REST API
 
-Example VirtualHost:
-
-```apache
-<VirtualHost *:80>
-    ServerName example.test
-
-    DocumentRoot "/Applications/XAMPP/xamppfiles/htdocs/clients/user_1/example_test"
-
-    <Directory "/Applications/XAMPP/xamppfiles/htdocs/clients/user_1/example_test">
-        AllowOverride All
-        Require all granted
-    </Directory>
-</VirtualHost>
-```
-
----
-
-# REST API Layer
-
-The project also contains a basic REST API layer built with Laravel Sanctum.
+The project exposes a REST API secured by Laravel Sanctum.
 
 ## Public Endpoints
 
-### Get Hosting Plans
+### Plans
 
 ```http
 GET /api/plans
 ```
 
-Returns publicly available hosting plans.
+Returns available hosting plans.
 
 ---
 
@@ -208,126 +329,74 @@ Returns publicly available hosting plans.
 POST /api/login
 ```
 
-Request:
-
-```json
-{
-  "email": "test@example.com",
-  "password": "password"
-}
-```
-
-Response:
-
-```json
-{
-  "success": true,
-  "token": "1|xxxxxxxx",
-  "user": {
-    "id": 1,
-    "name": "Test User"
-  }
-}
-```
+Returns Sanctum access token.
 
 ---
 
-# Protected Endpoints
+## Protected Endpoints
 
-Protected endpoints use:
+Protected by:
 
 ```php
-
 auth:sanctum
-
 ```
 
-middleware and require:
+Examples:
 
 ```http
-
-Authorization: Bearer TOKEN
-
-```
-
-header.
-
----
-
-## Get User Databases
-
-```http
-
 GET /api/databases
-
-```
-
-Returns authenticated user's databases.
-
----
-
-## Get User Webspaces
-
-```http
-
 GET /api/webspaces
-
 ```
-
-Returns authenticated user's webspaces.
-
----
-
-# API Architecture
-
-The API layer follows:
-
-- thin controller principle
-
-- service layer architecture
-
-- token-based authentication
-
-- REST resource-oriented design
-
-Controllers are responsible only for:
-
-- request validation
-
-- calling services
-
-- returning JSON responses
-
-Business logic and provisioning remain inside service classes.
 
 ---
 
 # Current Status
 
 Implemented:
-- authentication
-- plans
-- DB provisioning
-- filesystem provisioning
-- Apache routing
 
-Planned:
-- automatic VirtualHost generation
-- provisioning rollback
-- async queue provisioning
-- SSL provisioning
-- delete/suspend flows
-- admin management panel
+- Authentication
+- Hosting plans
+- Database provisioning
+- Webspace provisioning
+- Nginx provisioning
+- Git deployment
+- Composer install
+- Environment generation
+- APP_KEY generation
+- Database migrations
+- NPM install
+- Vite build
+- Queue jobs
+- REST API
+
+---
+
+# Planned Features
+
+- SSL provisioning (Let's Encrypt)
+- Automatic renewal handling
+- Deployment logs viewer
+- File manager
+- Cron management
+- Queue worker management
+- Webspace suspension
+- Webspace deletion
+- Backup management
+- Multi-user administration
 
 ---
 
 # Purpose
 
-This project is intentionally built as a learning-oriented mini hosting panel focused mainly on:
+Mini Hosting Service is primarily an educational project focused on:
 
-- backend architecture
-- provisioning systems
-- service layer patterns
-- infrastructure automation
-- security mindset
-- Laravel OOP practices
+- Laravel architecture
+- Service layer patterns
+- Linux administration
+- Infrastructure automation
+- Hosting platform concepts
+- Deployment pipelines
+- Security practices
+- DevOps fundamentals
+
+The goal is to understand how commercial hosting panels work internally by building one from scratch.
