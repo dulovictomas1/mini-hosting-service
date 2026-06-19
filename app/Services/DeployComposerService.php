@@ -15,14 +15,13 @@ class DeployComposerService
             'deploy_status' => 'Proces beží',
         ]);
 
-        $process = new Process([
+        $process = new Process([            
             'composer',
-            'install',
-            '--optimize-autoloader',
-            '--no-dev'
+            'install',            
+            '--no-dev',
         ]);
 
-        $process->setTimeout(600);
+        //$process->setTimeout(600);
 
         $process->run();
 
