@@ -130,6 +130,8 @@ class DeployLaravelsetupService
 
         $process->run();
 
+        dd($path);
+
         if (! $process->isSuccessful()) {
             throw new Exception(
                 $process->getOutput() . "\n" . $process->getErrorOutput()
