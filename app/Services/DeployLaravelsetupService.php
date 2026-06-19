@@ -131,16 +131,16 @@ class DeployLaravelsetupService
 
         $process->run();
 
-        new Process([
+        $proces2 = new Process([
             'php',
             'artisan',
             'migrate',
             '--force',
         ], $path);
 
-        $process->setTimeout(600);
+        $proces2->setTimeout(600);
 
-        $process->run();
+        $proces2->run();
 
 
         //dd($process->getOutput());
@@ -148,6 +148,12 @@ class DeployLaravelsetupService
         if (! $process->isSuccessful()) {
             throw new Exception(
                 $process->getOutput() . "\n" . $process->getErrorOutput()
+            );
+        }
+
+        if (! $proces2->isSuccessful()) {
+            throw new Exception(
+                $proces2->getOutput() . "\n" . $proces2->getErrorOutput()
             );
         }
 
