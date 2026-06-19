@@ -74,6 +74,9 @@
                             <input type="hidden" id="webspace-id" value="{{ $webspaces->id }}">
                         </form>
 
+                        <br>
+                        <hr>
+
                         <form action="{{ route('npminstall.create') }}" method="post" class="mt-6 space-y-6">
                             @csrf
 
