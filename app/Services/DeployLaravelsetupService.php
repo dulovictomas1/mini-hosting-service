@@ -17,7 +17,7 @@ class DeployLaravelsetupService
         $envPath = $path . '/.env';
         $envExamplePath = $path . '/.env.example';
 
-        /*if (! File::exists($envPath)) {
+        if (! File::exists($envPath)) {
             File::copy($envExamplePath, $envPath);
         }
 
@@ -67,7 +67,7 @@ class DeployLaravelsetupService
         File::put(
             $envPath,
             $env
-        );*/
+        );
 
 
         $clear = new Process([
@@ -82,7 +82,16 @@ class DeployLaravelsetupService
             'php',
             'artisan',
             'key:generate',
+            '--show',
         ], $path);
+
+        $process->run();
+
+        dd(
+            $process->isSuccessful(),
+            $process->getOutput(),
+            $process->getErrorOutput()
+        );
 
         /*dd(
             get_current_user(),
