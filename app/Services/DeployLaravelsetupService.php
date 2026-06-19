@@ -70,22 +70,18 @@ class DeployLaravelsetupService
         );
         
 
-        $process = new Process([                   
+        $process = new Process([
+            'sudo',
+            '-u',
+            'www-data',             
             'php',
             'artisan',            
-            'key:generate',
-            '--force',
+            'key:generate',            
         ], $path);
 
         //$process->setTimeout(600);
 
-        $process->run();
-
-        dd(
-            $process->getOutput(),
-            $process->getErrorOutput(),
-            File::get($envPath),
-        );
+        $process->run();        
 
         if (! $process->isSuccessful()) {
             throw new Exception($process->getErrorOutput());
