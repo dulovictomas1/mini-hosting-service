@@ -135,12 +135,17 @@ class DeployLaravelsetupService
             file_get_contents($path . '/.env')
         );*/
 
-        $process = new Process([
-            'php',
-            $path . '/artisan',
-            'migrate',
-            '--force',
-        ]);
+        $process = Process::fromShellCommandline(
+            'php artisan migrate --force',
+            $path
+        );
+
+        $process->run();
+
+        dd(
+            $process->getOutput(),
+            $process->getErrorOutput()
+        );
 
         $process->setTimeout(600);
 
