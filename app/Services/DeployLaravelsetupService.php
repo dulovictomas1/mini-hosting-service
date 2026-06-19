@@ -111,10 +111,15 @@ class DeployLaravelsetupService
             '--force',
         ], $path);
 
+        $process->setTimeout(600);
+
         $process->run();
 
         if (! $process->isSuccessful()) {
-            throw new Exception($process->getErrorOutput());
+            throw new Exception(
+                "OUTPUT:\n" . $process->getOutput() .
+                "\nERROR:\n" . $process->getErrorOutput()
+            );
         }
     }
 }
