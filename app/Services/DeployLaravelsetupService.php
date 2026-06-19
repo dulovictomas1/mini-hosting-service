@@ -87,21 +87,12 @@ class DeployLaravelsetupService
 
         $process->run();
 
-        dd(
-            $process->isSuccessful(),
-            $process->getOutput(),
-            $process->getErrorOutput()
-        );
-
-        /*dd(
-            get_current_user(),
-            posix_geteuid(),
-            shell_exec('whoami')
-        );*/
-
         //$process->setTimeout(600);
 
-        $process->run();        
+        $key = trim($process->getOutput());
+
+        $env = preg_replace('/^APP_KEY=.*/m', 'APP_KEY=' . $key, $env);
+        File::put($envPath, $env);        
 
         if (! $process->isSuccessful()) {
             throw new Exception($process->getErrorOutput());
