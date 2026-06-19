@@ -138,13 +138,10 @@ class DeployLaravelsetupService
         $process = new Process([
             'php',
             'artisan',
-            'tinker',
-            '--execute=echo config("database.connections.mysql.database");'
+            'migrate:status',
         ], $path);
 
         $process->run();
-
-        dd($process->getOutput());
 
         new Process([
             'php',
@@ -152,13 +149,6 @@ class DeployLaravelsetupService
             'migrate',
             '--force',
         ], $path);
-
-        dd(
-            get_current_user(),
-            getmyuid(),
-            posix_geteuid(),
-            shell_exec('whoami')
-        );
 
         $process->run();
 
