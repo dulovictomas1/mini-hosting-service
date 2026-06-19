@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class DeployLaravelsetupService
 {
-    public function setup( string $dbname, string $dbuser, string $dbpassword, string $path, Webspace $webspace)
+    public function setup( string $dbname, string $dbuser, string $dbpassword, string $path)
     {        
         copy(
             $path . '/.env.example',

@@ -75,7 +75,7 @@ class DeployController extends Controller
                 $database->database_user,
                 $database->database_password,
                 $path,              
-                $webspace->id,  
+                //$webspace->id,  
             );
 
             return redirect()->route('deploy')->with('success', 'ENV súbor bol úspešne vytvorený, KEY generate prebehol úspešne');
