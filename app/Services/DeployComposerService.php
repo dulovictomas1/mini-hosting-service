@@ -19,7 +19,7 @@ class DeployComposerService
             'composer',
             'install',            
             '--no-dev',
-        ]);
+        ], $path);
 
         //$process->setTimeout(600);
 
