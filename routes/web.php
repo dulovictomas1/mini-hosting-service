@@ -58,3 +58,9 @@ Route::post('/databazy/create', [DatabaseController::class, 'store'])->middlewar
 Route::post('/webspace/create', [WebspaceController::class, 'store'])->middleware(['auth'])->name('webspace.store');
 
 Route::post('/gitclone/create', [DeployController::class, 'createClone'])->middleware(['auth'])->name('gitclone.create');
+
+Route::get('/webspace/{webspace}/status', function(App\Models\Webspace $webspace) {
+    return response()->json([
+        'status' => $webspace->deploy_status,
+    ]);
+})->middleware('auth');

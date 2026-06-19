@@ -13,7 +13,7 @@ class DeployController extends Controller
     public function createClone( Request $request, DeployCloneService $deployCloneService )
     {
         $validated = $request->validate([
-            'giturl' => ['required'],
+            'giturl' => ['required', 'url'],
         ]);
 
         $webspace = auth()->user()->webspaces()->firstOrFail();
@@ -21,7 +21,8 @@ class DeployController extends Controller
 
         DeployCloneJob::dispatch(
             $path,
-            $validated['giturl']
+            $validated['giturl'],
+            $webspace->id,
         );
 
         return redirect()

@@ -9,8 +9,12 @@ use Symfony\Component\Process\Process;
 
 class DeployCloneService
 {
-    public function clone(string $path, string $giturl)
+    public function clone(string $path, string $giturl, Webspace $webspace)
     {
+        $webspace->update([
+            'deploy_status' => 'Proces beží',
+        ]);
+
         $process = new Process([
             'git',
             'clone',
@@ -25,5 +29,9 @@ class DeployCloneService
         if (! $process->isSuccessful()) {
             throw new \RuntimeException($process->getErrorOutput());
         }
+
+        $webspace->update([
+            'deploy_status' => 'Proces úspešne dokončený',
+        ]);
     }
 }

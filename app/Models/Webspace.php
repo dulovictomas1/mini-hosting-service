@@ -12,6 +12,7 @@ class Webspace extends Model
         'path',
         'status',
         'type',
+        'deploy_status',
     ];
 
     public function user()
