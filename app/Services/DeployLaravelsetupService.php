@@ -104,7 +104,16 @@ class DeployLaravelsetupService
     //Spustenie migrácii
     public function migrate(string $path)
     {
+        /*$process = new Process([
+            'php',
+            'artisan',
+            'migrate',
+            '--force',
+        ], $path);*/
         $process = new Process([
+            'sudo',
+            '-u',
+            'www-data',
             'php',
             'artisan',
             'migrate',
