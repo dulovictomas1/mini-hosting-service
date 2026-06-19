@@ -11,6 +11,7 @@ use Exception;
 use App\Jobs\DeployCloneJob;
 use App\Jobs\DeployComposerJob;
 use App\Jobs\DeployNpmInstallJob;
+use App\Jobs\DeployNpmBuildJob;
 use App\Services\DeployLaravelsetupService;
 
 class DeployController extends Controller
@@ -106,6 +107,22 @@ class DeployController extends Controller
         return redirect()
             ->route('deploy')
             ->with('success', 'Npm Install bol spustený na pozadí.');
+
+    }
+
+    public function npmRunbuild( Request $request )
+    {
+        $webspace = auth()->user()->webspaces()->firstOrFail();
+        $path = str_replace('/public', '', $webspace->path);        
+
+        DeployNpmBuildJob::dispatch(
+            $path,            
+            $webspace->id,
+        );
+
+        return redirect()
+            ->route('deploy')
+            ->with('success', 'Npm Run build bol spustený na pozadí.');
 
     }
 }
