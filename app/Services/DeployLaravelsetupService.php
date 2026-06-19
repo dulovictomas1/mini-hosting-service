@@ -66,7 +66,8 @@ class DeployLaravelsetupService
         );
         
 
-        $process = new Process([            
+        $process = new Process([
+            'sudo',       
             'php',
             'artisan',            
             'key:generate',
