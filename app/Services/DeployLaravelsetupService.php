@@ -111,25 +111,6 @@ class DeployLaravelsetupService
     public function migrate(string $path)
     {
 
-        $process = new Process([
-
-            'pwd',
-
-        ], $path);
-
-        $process->run();
-
-        dd(
-
-            $path,
-
-            $process->getOutput(),
-
-            file_exists($path . '/artisan'),
-
-            file_exists($path . '/database/migrations')
-
-        );
 
         $clear = new Process([
             'php',
