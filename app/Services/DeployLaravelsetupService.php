@@ -71,12 +71,9 @@ class DeployLaravelsetupService
         
 
         $process = new Process([
-            'sudo',
-            '-u',
-            'www-data',             
             'php',
-            'artisan',            
-            'key:generate',            
+            'artisan',
+            'key:generate',
         ], $path);
 
         //$process->setTimeout(600);
