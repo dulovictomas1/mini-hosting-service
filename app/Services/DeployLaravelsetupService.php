@@ -23,6 +23,10 @@ class DeployLaravelsetupService
 
         $env = File::get($envPath);
 
+        if (! str_contains($env, 'APP_KEY=')) {
+            $env = "APP_KEY=\n" . $env;
+        }
+
 
         $env = str_replace(
             '# DB_HOST=127.0.0.1',
