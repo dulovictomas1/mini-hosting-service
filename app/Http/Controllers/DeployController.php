@@ -84,4 +84,22 @@ class DeployController extends Controller
             return redirect()->route('deploy')->withErrors($e->getMessage());
         }
     }
+
+    public function laravelmigrate( Request $request, DeployLaravelsetupService $deployLaravelsetupService )
+    {
+        $webspace = auth()->user()->webspaces()->firstOrFail();        
+        $path = str_replace('/public', '', $webspace->path);   
+
+        try {
+            $deployLaravelsetupService->migrate(
+                $path,              
+                //$webspace->id,  
+            );
+
+            return redirect()->route('deploy')->with('success', 'Migrácie prebehli úspešne');
+
+        } catch (Exception $e) {
+            return redirect()->route('deploy')->withErrors($e->getMessage());
+        }
+    }
 }

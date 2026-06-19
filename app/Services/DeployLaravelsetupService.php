@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\File;
 
 class DeployLaravelsetupService
 {
+    //Nastavenie ENV súboru a KEY
     public function setup( string $dbname, string $dbuser, string $dbpassword, string $path)
     {       
         $envPath = $path . '/.env';
@@ -98,5 +99,22 @@ class DeployLaravelsetupService
             throw new Exception($process->getErrorOutput());
         }
         
+    }
+
+    //Spustenie migrácii
+    public function migrate(string $path)
+    {
+        $process = new Process([
+            'php',
+            'artisan',
+            'migrate',
+            '--force',
+        ], $path);
+
+        $process->run();
+
+        if (! $process->isSuccessful()) {
+            throw new Exception($process->getErrorOutput());
+        }
     }
 }
