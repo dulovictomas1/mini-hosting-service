@@ -132,16 +132,35 @@ class DeployLaravelsetupService
 
         $process->run();
 
-        $proces2 = new Process([
-            'php',
-            'artisan',
-            'migrate',
-            '--force',
-        ], $path);
 
-        $proces2->setTimeout(600);
 
-        $proces2->run();
+        $process = new Process(
+            [
+                'php',
+                'artisan',
+                'migrate',
+                '--force',
+            ],
+
+            $path,
+
+            [
+                'APP_ENV' => false,
+                'APP_KEY' => false,
+                'DB_CONNECTION' => false,
+                'DB_HOST' => false,
+                'DB_PORT' => false,
+                'DB_DATABASE' => false,
+                'DB_USERNAME' => false,
+                'DB_PASSWORD' => false,
+                'CACHE_STORE' => false,
+                'QUEUE_CONNECTION' => false,
+            ]
+        );
+
+        $process->setTimeout(600);
+
+        $process->run();
 
 
         //dd($process->getOutput());
@@ -152,13 +171,7 @@ class DeployLaravelsetupService
             );
         }
 
-        if (! $proces2->isSuccessful()) {
-            throw new Exception(
-                $proces2->getOutput() . "\n" . $proces2->getErrorOutput()
-            );
-        }
-
-        return $proces2->getOutput();
+        return $process->getOutput();
 
     }
 
