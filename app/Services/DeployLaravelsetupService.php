@@ -65,6 +65,12 @@ class DeployLaravelsetupService
             $env
         );
 
+        $env = str_replace(
+            'CACHE_STORE=database',
+            'CACHE_STORE=file',
+            $env
+        );
+
         File::put(
             $envPath,
             $env
@@ -104,6 +110,15 @@ class DeployLaravelsetupService
     //Spustenie migrácii
     public function migrate(string $path)
     {
+
+        $clear = new Process([
+            'php',
+            'artisan',
+            'optimize:clear',
+        ], $path);
+
+        $clear->run();
+
         $process = new Process([
             'php',
             'artisan',
