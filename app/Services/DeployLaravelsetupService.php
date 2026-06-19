@@ -60,7 +60,7 @@ class DeployLaravelsetupService
             $env
         );
 
-        $env = File::put(
+        File::put(
             $envPath,
             $env
         );
@@ -76,6 +76,11 @@ class DeployLaravelsetupService
         //$process->setTimeout(600);
 
         $process->run();
+
+        dd(
+            $process->getOutput(),
+            $process->getErrorOutput()
+        );
 
         if (! $process->isSuccessful()) {
             throw new Exception($process->getErrorOutput());
