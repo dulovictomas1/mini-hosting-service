@@ -166,52 +166,36 @@ class DeployLaravelsetupService
 {
 
     $status = new Process([
-
         'php',
-
         'artisan',
-
         'migrate:status',
-
     ], $path);
 
     $status->run();
 
-    /*$migrate = new Process([
-
+    $migrate = new Process([
         'php',
-
         'artisan',
-
         'migrate',
-
         '--force',
-
         '-vvv',
-
     ], $path);
 
     $migrate->setTimeout(600);
 
-    $migrate->run();*/
+    $migrate->run();
 
-    $result = Process::path($path)->run('php artisan migrate --force');
-
-    /*$statusAfter = new Process([
-
+    $statusAfter = new Process([
         'php',
-
         'artisan',
-
         'migrate:status',
+    ], $path);
 
-    ], $path);*/
+    $statusAfter->run();
 
-    //$statusAfter->run();
-
-    if (! $result->isSuccessful()) {
+    if (! $migrate->isSuccessful()) {
             throw new Exception(
-                $result->getOutput() . "\n" . $result->getErrorOutput()
+                $migrate->getOutput() . "\n" . $migrate->getErrorOutput()
             );
         }
 
