@@ -124,6 +124,18 @@ class DeployLaravelsetupService
 
         $process->run();
 
+        dd(
+
+            $path,
+
+            shell_exec('whoami'),
+
+            file_exists($path . '/artisan'),
+
+            file_exists($path . '/.env')
+
+        );
+
         if (! $process->isSuccessful()) {
             throw new Exception(
                 "OUTPUT:\n" . $process->getOutput() .
