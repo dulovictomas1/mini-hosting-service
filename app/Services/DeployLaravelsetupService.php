@@ -121,5 +121,7 @@ class DeployLaravelsetupService
                 "\nERROR:\n" . $process->getErrorOutput()
             );
         }
+
+        return $process->getOutput();
     }
 }
