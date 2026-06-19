@@ -73,7 +73,7 @@ class DeployController extends Controller
             $deployLaravelsetupService->setup(
                 $database->database_name,
                 $database->database_user,
-                $database->password,
+                $database->database_password,
                 $path,              
                 $webspace->id,  
             );
