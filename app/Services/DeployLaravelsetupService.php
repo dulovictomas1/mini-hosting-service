@@ -108,7 +108,7 @@ class DeployLaravelsetupService
     }
 
     //Spustenie migrácii
-    public function migrate(string $path, Webspace $webspace)
+    public function migrate(string $path)
     {
 
         $clear = new Process([
@@ -117,29 +117,17 @@ class DeployLaravelsetupService
             'optimize:clear',
         ], $path);
 
+        $clear->setTimeout(600);
+
         $clear->run();
-
-        /*$process = new Process([
-            'php',
-            'artisan',
-            'migrate',
-            '--force',
-        ], $path);
-
-        $process->setTimeout(600);
-
-        $process->run();
-
-        dd(
-            $path,
-            file_get_contents($path . '/.env')
-        );*/
 
         $process = new Process([
             'php',
             'artisan',
             'migrate:status',
         ], $path);
+
+        $process->setTimeout(600);
 
         $process->run();
 
@@ -149,6 +137,8 @@ class DeployLaravelsetupService
             'migrate',
             '--force',
         ], $path);
+
+        $process->setTimeout(600);
 
         $process->run();
 
