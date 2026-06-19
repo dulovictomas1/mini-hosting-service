@@ -20,11 +20,8 @@ class DeployCloneJob implements ShouldQueue
 
     public function handle(DeployCloneService $deployCloneService): void
     {
-        \Log::info('JOB STARTED');
-
+        
         $webspace = Webspace::findOrFail($this->webspaceId);
-
-        \Log::info('WEBSPACE FOUND');
 
         $deployCloneService->clone($this->path, $this->giturl, $webspace);
     }
