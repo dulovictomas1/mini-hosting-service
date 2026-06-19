@@ -135,7 +135,7 @@ class DeployLaravelsetupService
             file_get_contents($path . '/.env')
         );*/
 
-        new Process([
+        /*new Process([
             'php',
             'artisan',
             'migrate',
@@ -149,7 +149,15 @@ class DeployLaravelsetupService
             shell_exec('whoami')
         );
 
+        $process->run();*/
+
+        $process = new Process([
+            'whoami',
+        ]);
+
         $process->run();
+
+        dd($process->getOutput());
 
         //dd($process->getOutput());
 
