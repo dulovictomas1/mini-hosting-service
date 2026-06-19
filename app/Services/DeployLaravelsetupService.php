@@ -157,7 +157,7 @@ class DeployLaravelsetupService
             );
         }
 
-        return $process->getOutput();
+        return $proces2->getOutput();
 
     }
 }
