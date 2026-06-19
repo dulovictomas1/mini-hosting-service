@@ -66,11 +66,11 @@ class DeployLaravelsetupService
         );
         
 
-        $process = new Process([
-            'sudo',       
+        $process = new Process([                   
             'php',
             'artisan',            
             'key:generate',
+            '--force',
         ], $path);
 
         //$process->setTimeout(600);
