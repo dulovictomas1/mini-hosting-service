@@ -138,14 +138,15 @@ class DeployLaravelsetupService
         $process = new Process([
             'php',
             'artisan',
-            'migrate:status',
+            'migrate',
+            '--force',
         ]);
 
         $process->setWorkingDirectory($path);
 
         $process->run();
 
-        dd($process->getOutput());
+        //dd($process->getOutput());
 
         if (! $process->isSuccessful()) {
             throw new Exception(
