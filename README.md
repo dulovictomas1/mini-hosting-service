@@ -407,7 +407,7 @@ The goal is to understand how commercial hosting panels work internally by build
 
 ### Database Provisioning
 
-![Database Provisioning](Screenshots/DatabasesScreen.jpg)
+![Database Provisioning](Screenshots/DatabasesScreen.png)
 
 ### Webspace Provisioning
 
