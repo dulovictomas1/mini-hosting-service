@@ -108,8 +108,28 @@ class DeployLaravelsetupService
     }
 
     //Spustenie migrácii
-    /*public function migrate(string $path)
+    public function migrate(string $path)
     {
+
+        $process = new Process([
+
+            'pwd',
+
+        ], $path);
+
+        $process->run();
+
+        dd(
+
+            $path,
+
+            $process->getOutput(),
+
+            file_exists($path . '/artisan'),
+
+            file_exists($path . '/database/migrations')
+
+        );
 
         $clear = new Process([
             'php',
@@ -159,45 +179,6 @@ class DeployLaravelsetupService
 
         return $proces2->getOutput();
 
-    }*/
+    }
 
-        public function migrate(string $path)
-
-{
-
-    $status = new Process([
-        'php',
-        'artisan',
-        'migrate:status',
-    ], $path);
-
-    $status->run();
-
-    $migrate = new Process([
-        'php',
-        'artisan',
-        'migrate',
-        '--force',
-        '-vvv',
-    ], $path);
-
-    $migrate->setTimeout(600);
-
-    $migrate->run();
-
-    $statusAfter = new Process([
-        'php',
-        'artisan',
-        'migrate:status',
-    ], $path);
-
-    $statusAfter->run();
-
-    if (! $migrate->isSuccessful()) {
-            throw new Exception(
-                $migrate->getOutput() . "\n" . $migrate->getErrorOutput()
-            );
-        }
-
-}
 }
