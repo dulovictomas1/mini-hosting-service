@@ -135,18 +135,21 @@ class DeployLaravelsetupService
             file_get_contents($path . '/.env')
         );*/
 
-        $process = new Process([
+        new Process([
             'php',
             'artisan',
-            'migrate:status',
+            'migrate',
+            '--force',
         ], $path);
 
-        $process->run();
-
         dd(
-            $process->getOutput(),
-            file_get_contents($path . '/.env')
+            get_current_user(),
+            getmyuid(),
+            posix_geteuid(),
+            shell_exec('whoami')
         );
+
+        $process->run();
 
         //dd($process->getOutput());
 
