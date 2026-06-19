@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\DeployCloneService;
+use App\Services\DeployComposerService;
 use App\Models\Webspace;
 use Exception;
 use App\Jobs\DeployCloneJob;
+use App\Jobs\DeployComposerJob;
 
 class DeployController extends Controller
 {
@@ -41,5 +43,21 @@ class DeployController extends Controller
             return redirect()->route('deploy')->withErrors($e->getMessage());
         }*/
         
+    }
+
+    public function composerInstall( Request $request )
+    {
+        $webspace = auth()->user()->webspaces()->firstOrFail();
+        $path = str_replace('/public', '', $webspace->path);        
+
+        DeployComposerJob::dispatch(
+            $path,            
+            $webspace->id,
+        );
+
+        return redirect()
+            ->route('deploy')
+            ->with('success', 'Composer Install bol spustený na pozadí.');
+
     }
 }

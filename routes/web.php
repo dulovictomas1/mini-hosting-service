@@ -59,6 +59,8 @@ Route::post('/webspace/create', [WebspaceController::class, 'store'])->middlewar
 
 Route::post('/gitclone/create', [DeployController::class, 'createClone'])->middleware(['auth'])->name('gitclone.create');
 
+Route::post('/composerinst/create', [DeployController::class, 'composerInstall'])->middleware(['auth'])->name('composerinst.create');
+
 Route::get('/webspace/{webspace}/status', function(App\Models\Webspace $webspace) {
     return response()->json([
         'status' => $webspace->deploy_status,

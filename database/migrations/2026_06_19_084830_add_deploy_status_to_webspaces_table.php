@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('webspaces', function (Blueprint $table) {
-            $table->string('deploy_staus');
+            $table->string('deploy_status');
         });
     }
 
