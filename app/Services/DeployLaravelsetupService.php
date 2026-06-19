@@ -108,7 +108,7 @@ class DeployLaravelsetupService
     }
 
     //Spustenie migrácii
-    public function migrate(string $path)
+    public function migrate(string $path, Webspace $webspace)
     {
 
         $clear = new Process([
@@ -145,6 +145,13 @@ class DeployLaravelsetupService
         $process->setWorkingDirectory($path);
 
         $process->run();
+
+        dd(
+            $webspace->id,
+            $webspace->domain,
+            $webspace->path,
+            $path
+        );
 
         //dd($process->getOutput());
 

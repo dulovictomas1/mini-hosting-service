@@ -93,6 +93,7 @@ class DeployController extends Controller
         try {
             $deployLaravelsetupService->migrate(
                 $path,              
+                $webspace
                 //$webspace->id,  
             );
 
