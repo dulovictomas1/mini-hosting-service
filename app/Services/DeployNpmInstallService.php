@@ -20,7 +20,7 @@ class DeployNpmInstallService
             'install',                        
         ], $path);
 
-        $process->setTimeout(600);
+        $process->setTimeout(1800);
 
         $process->run();
 
@@ -28,20 +28,28 @@ class DeployNpmInstallService
             throw new \RuntimeException($process->getErrorOutput());
         }*/
         
-        if (! $process->isSuccessful()) {
+        /*if (! $process->isSuccessful()) {
+
+            $message =
+                "EXIT CODE: " . $process->getExitCode() .
+                "\nOUTPUT:\n" . $process->getOutput() .
+                "\nERROR:\n" . $process->getErrorOutput();
 
             $webspace->update([
-                'deploy_status' => 'NPM install zlyhal: ' . $process->getErrorOutput(),
+                'deploy_status' => mb_substr($message, 0, 1000),
             ]);
 
-            throw new \RuntimeException(
-                "OUTPUT:\n" . $process->getOutput() .
-                "\nERROR:\n" . $process->getErrorOutput()
-            );
-        }
+            \Log::error('NPM INSTALL FAILED', [
+                'path' => $path,
+                'message' => $message,
+            ]);
 
-        /*$webspace->update([
-            'deploy_status' => 'Proces Npm install úspešne dokončený',
-        ]);*/
+            throw new \RuntimeException($message);
+        }*/
+
+        $webspace->update([
+            //'deploy_status' => 'Proces Npm install úspešne dokončený',
+            'deploy_status' => 'NPM install zlyhal: ' . $process->getErrorOutput(),
+        ]);
     }
 }
