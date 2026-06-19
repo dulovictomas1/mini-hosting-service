@@ -207,5 +207,11 @@ class DeployLaravelsetupService
 
     $statusAfter->run();
 
+    if (! $migrate->isSuccessful()) {
+            throw new Exception(
+                $migrate->getOutput() . "\n" . $migrate->getErrorOutput()
+            );
+        }
+
 }
 }
