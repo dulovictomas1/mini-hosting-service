@@ -83,7 +83,8 @@ class DeployLaravelsetupService
 
         dd(
             $process->getOutput(),
-            $process->getErrorOutput()
+            $process->getErrorOutput(),
+            File::get($envPath),
         );
 
         if (! $process->isSuccessful()) {
