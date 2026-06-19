@@ -207,35 +207,5 @@ class DeployLaravelsetupService
 
     $statusAfter->run();
 
-    dd(
-
-        'PATH: ' . $path,
-
-        'STATUS BEFORE OUTPUT:',
-
-        $status->getOutput(),
-
-        'STATUS BEFORE ERROR:',
-
-        $status->getErrorOutput(),
-
-        'MIGRATE OUTPUT:',
-
-        $migrate->getOutput(),
-
-        'MIGRATE ERROR:',
-
-        $migrate->getErrorOutput(),
-
-        'STATUS AFTER OUTPUT:',
-
-        $statusAfter->getOutput(),
-
-        'STATUS AFTER ERROR:',
-
-        $statusAfter->getErrorOutput(),
-
-    );
-
 }
 }
