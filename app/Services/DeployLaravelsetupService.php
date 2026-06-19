@@ -130,7 +130,6 @@ class DeployLaravelsetupService
 
         $process->run();
 
-        dd($path);
         dd(
             $path,
             file_get_contents($path . '/.env')
