@@ -104,16 +104,7 @@ class DeployLaravelsetupService
     //Spustenie migrácii
     public function migrate(string $path)
     {
-        /*$process = new Process([
-            'php',
-            'artisan',
-            'migrate',
-            '--force',
-        ], $path);*/
         $process = new Process([
-            'sudo',
-            '-u',
-            'www-data',
             'php',
             'artisan',
             'migrate',
@@ -124,25 +115,13 @@ class DeployLaravelsetupService
 
         $process->run();
 
-        dd(
-
-            $path,
-
-            shell_exec('whoami'),
-
-            file_exists($path . '/artisan'),
-
-            file_exists($path . '/.env')
-
-        );
-
         if (! $process->isSuccessful()) {
             throw new Exception(
-                "OUTPUT:\n" . $process->getOutput() .
-                "\nERROR:\n" . $process->getErrorOutput()
+                $process->getOutput() . "\n" . $process->getErrorOutput()
             );
         }
 
         return $process->getOutput();
+
     }
 }

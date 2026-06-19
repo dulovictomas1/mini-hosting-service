@@ -96,7 +96,13 @@ class DeployController extends Controller
                 //$webspace->id,  
             );
 
-            return redirect()->route('deploy')->with('success', 'Migrácie prebehli úspešne');
+            //return redirect()->route('deploy')->with('success', 'Migrácie prebehli úspešne');
+
+            $result = $deployLaravelsetupService->migrate($path);
+
+            return redirect()
+                ->route('deploy')
+                ->with('success', $result ?: 'Migrácie prebehli alebo nebolo čo migrovať.');
 
         } catch (Exception $e) {
             return redirect()->route('deploy')->withErrors($e->getMessage());
