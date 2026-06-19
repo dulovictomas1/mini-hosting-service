@@ -17,7 +17,7 @@ class DeployLaravelsetupService
         $envPath = $path . '/.env';
         $envExamplePath = $path . '/.env.example';
 
-        if (! File::exists($envPath)) {
+        /*if (! File::exists($envPath)) {
             File::copy($envExamplePath, $envPath);
         }
 
@@ -67,7 +67,7 @@ class DeployLaravelsetupService
         File::put(
             $envPath,
             $env
-        );
+        );*/
         
 
         $process = new Process([
