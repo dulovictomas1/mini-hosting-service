@@ -10,6 +10,7 @@ use App\Models\Database;
 use Exception;
 use App\Jobs\DeployCloneJob;
 use App\Jobs\DeployComposerJob;
+use App\Jobs\DeployNpmInstallJob;
 use App\Services\DeployLaravelsetupService;
 
 class DeployController extends Controller
@@ -32,18 +33,6 @@ class DeployController extends Controller
         return redirect()
             ->route('deploy')
             ->with('success', 'Deploy bol spustený na pozadí.');
-
-        /*try {
-            $deployCloneService->clone(
-                $path,
-                $validated['giturl'],
-            );
-
-            return redirect()->route('deploy')->with('success', 'Clon bol úspšne vytvorený');
-
-        } catch (Exception $e) {
-            return redirect()->route('deploy')->withErrors($e->getMessage());
-        }*/
         
     }
 
@@ -92,20 +81,31 @@ class DeployController extends Controller
 
         try {
             $deployLaravelsetupService->migrate(
-                $path,                              
-                //$webspace->id,  
+                $path,                                              
             );
-
-            //return redirect()->route('deploy')->with('success', 'Migrácie prebehli úspešne');
-
-            $result = $deployLaravelsetupService->migrate($path);
 
             return redirect()
                 ->route('deploy')
-                ->with('success', $result ?: 'Migrácie prebehli alebo nebolo čo migrovať.');
+                ->with('success', 'Migrácie prebehli úspešne, skontrolujte databázu.');
 
         } catch (Exception $e) {
             return redirect()->route('deploy')->withErrors($e->getMessage());
         }
+    }
+
+    public function npmInstall( Request $request )
+    {
+        $webspace = auth()->user()->webspaces()->firstOrFail();
+        $path = str_replace('/public', '', $webspace->path);        
+
+        DeployNpmInstallJob::dispatch(
+            $path,            
+            $webspace->id,
+        );
+
+        return redirect()
+            ->route('deploy')
+            ->with('success', 'Composer Install bol spustený na pozadí.');
+
     }
 }

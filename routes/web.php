@@ -65,6 +65,8 @@ Route::post('/laravelsetup/create', [DeployController::class, 'laravelstup'])->m
 
 Route::post('/laravelmigrate/create', [DeployController::class, 'laravelmigrate'])->middleware(['auth'])->name('laravelmigrate.create');
 
+Route::post('/npminstall/create', [DeployController::class, 'npmInstall'])->middleware(['auth'])->name('npminstall.create');
+
 Route::get('/webspace/{webspace}/status', function(App\Models\Webspace $webspace) {
     return response()->json([
         'status' => $webspace->deploy_status,

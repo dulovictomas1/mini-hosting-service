@@ -7,19 +7,17 @@ use Illuminate\Support\Str;
 use Exception;
 use Symfony\Component\Process\Process;
 
-class DeployCloneService
+class DeployNpmInstallService
 {
-    public function clone(string $path, string $giturl, Webspace $webspace)
+    public function npminstal(string $path, Webspace $webspace)
     {
         $webspace->update([
-            'deploy_status' => 'Proces Git clone beží',
+            'deploy_status' => 'Proces NPM install beží',
         ]);
 
-        $process = new Process([
-            'git',
-            'clone',
-            $giturl,
-            '.',
+        $process = new Process([            
+            'npm',
+            'install',                        
         ], $path);
 
         $process->setTimeout(600);
@@ -31,7 +29,7 @@ class DeployCloneService
         }
 
         $webspace->update([
-            'deploy_status' => 'Proces Git clone úspešne dokončený',
+            'deploy_status' => 'Proces Npm install úspešne dokončený',
         ]);
     }
 }

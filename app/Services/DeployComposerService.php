@@ -12,7 +12,7 @@ class DeployComposerService
     public function composer(string $path, Webspace $webspace)
     {
         $webspace->update([
-            'deploy_status' => 'Proces beží',
+            'deploy_status' => 'Proces Composer install beží',
         ]);
 
         $process = new Process([            
@@ -30,7 +30,7 @@ class DeployComposerService
         }
 
         $webspace->update([
-            'deploy_status' => 'Proces úspešne dokončený',
+            'deploy_status' => 'Proces Composer install úspešne dokončený',
         ]);
     }
 }

@@ -110,30 +110,7 @@ class DeployLaravelsetupService
     //Spustenie migrácii
     public function migrate(string $path)
     {
-
-
-        $clear = new Process([
-            'php',
-            'artisan',
-            'optimize:clear',
-        ], $path);
-
-        $clear->setTimeout(600);
-
-        $clear->run();
-
-        $process = new Process([
-            'php',
-            'artisan',
-            'migrate:status',
-        ], $path);
-
-        $process->setTimeout(600);
-
-        $process->run();
-
-
-
+        //Funkčná migrácia
         $process = new Process(
             [
                 'php',
@@ -141,9 +118,8 @@ class DeployLaravelsetupService
                 'migrate',
                 '--force',
             ],
-
             $path,
-
+            //VEĽmi dôležité - nastavuje aby sa nededili hodnoty v ENV z mini hosting ENV panelu, ale načítalo si vlastné
             [
                 'APP_ENV' => false,
                 'APP_KEY' => false,
