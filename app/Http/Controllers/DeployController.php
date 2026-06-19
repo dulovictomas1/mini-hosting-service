@@ -105,7 +105,7 @@ class DeployController extends Controller
 
         return redirect()
             ->route('deploy')
-            ->with('success', 'Composer Install bol spustený na pozadí.');
+            ->with('success', 'Npm Install bol spustený na pozadí.');
 
     }
 }

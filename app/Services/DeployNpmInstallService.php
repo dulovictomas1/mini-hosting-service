@@ -24,8 +24,20 @@ class DeployNpmInstallService
 
         $process->run();
 
-        if (! $process->isSuccessful()) {
+        /*if (! $process->isSuccessful()) {
             throw new \RuntimeException($process->getErrorOutput());
+        }*/
+        
+        if (! $process->isSuccessful()) {
+
+            $webspace->update([
+                'deploy_status' => 'NPM install zlyhal: ' . $process->getErrorOutput(),
+            ]);
+
+            throw new \RuntimeException(
+                "OUTPUT:\n" . $process->getOutput() .
+                "\nERROR:\n" . $process->getErrorOutput()
+            );
         }
 
         $webspace->update([
